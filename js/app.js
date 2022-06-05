@@ -1,31 +1,59 @@
 const searchPlayer = () => {
-    const inputField = document.getElementById('input-field').value;
-    // console.log(inputField);
 
-    const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${inputField}`;
 
-    fetch(url)
+  // toggle display 
+  toggleDisplay('none');
+  document.getElementById('showInfo').style.display = 'none';
+
+
+  const inputField = document.getElementById('input-field').value;
+  document.getElementById('input-field').value = '';
+  // console.log(inputField);
+
+
+
+
+
+  const url = `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=${inputField}`;
+
+  fetch(url)
     .then(res => res.json())
     .then(data => displayPlayer(data.player[0]))
 
 }
 
+
+// toggle display
+const toggleDisplay = displayValue => {
+  document.getElementById('showPlayer').style.display = displayValue;
+}
+
+
+
+
 const displayPlayer = data => {
-    // console.log(data);
-    const showPlayer = document.getElementById('showPlayer');
+  // console.log(data);
+  const showPlayer = document.getElementById('showPlayer');
 
-    const div = document.createElement('div');
-    div.classList.add('card');
-    div.classList.add('lg:card-side');
-    div.classList.add('bg-base-100');
-    div.classList.add('shadow-xl');
-    // div.classList.add('');
 
-    div.innerHTML = `
+  // toggle display
+  toggleDisplay('block');
+  document.getElementById('showInfo').style.display = 'none';
+
+
+
+  const div = document.createElement('div');
+  div.classList.add('card');
+  div.classList.add('lg:card-side');
+  div.classList.add('bg-base-100');
+  div.classList.add('shadow-xl');
+  // div.classList.add('');
+
+  div.innerHTML = `
     <figure><img src="${data.strThumb}" alt="Album"></figure>
         <div class="card-body">
           <h2 class="card-title">${data.strPlayer}</h2>
-          <p>${data.strDescriptionEN.slice(0,400)}............</p>
+          <p>${data.strDescriptionEN.slice(0, 400)}............</p>
           <div class="card-actions justify-end">
                 <div class="badge badge-outline badge badge-secondary hover:bg-lime-500 p-4">${data.strPosition}</div> 
                 <div class="badge badge-outline badge badge-primary hover:bg-lime-500 p-4">${data.strNationality} </div>
@@ -36,37 +64,45 @@ const displayPlayer = data => {
         </div>
     `;
 
-    showPlayer.appendChild(div);
+  showPlayer.appendChild(div);
 
 }
 
 
 const moreInfo = (id) => {
-    const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}`;
-    fetch(url)
+  const url = `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${id}`;
+  fetch(url)
     .then(res => res.json())
     .then(data => showMoreInfo(data.players[0]));
 }
 
 
 const showMoreInfo = (data) => {
-    console.log(data);
-    const showInfo = document.getElementById('showInfo');
-
-    const div = document.createElement('div');
-    // div.style.backgroundColor = 'lightblue'
-    div.style.backgroundImage = `url(${data.strThumb})`;
-    div.classList.add('hero');
-    div.classList.add('min-h-screen');
 
 
-    div.innerHTML = ` 
+  // toggle display 
+  toggleDisplay('none');
+  document.getElementById('showInfo').style.display = 'block';
+
+
+  // console.log(data);
+  const showInfo = document.getElementById('showInfo');
+
+  const div = document.createElement('div');
+  // how to add style in dom createElement
+  // div.style.backgroundColor = 'lightblue'
+  div.style.backgroundImage = `url(${data.strThumb})`;
+  div.classList.add('hero');
+  div.classList.add('min-h-screen');
+
+
+  div.innerHTML = ` 
     <div class="hero-overlay bg-opacity-60"></div>
     <div class="hero-content text-center text-neutral-content">
       
       <div class="card-body">
           <h2 class="card-title">${data.strPlayer}</h2>
-          <p>${data.strDescriptionEN.slice(0,600)}.</p>
+          <p>${data.strDescriptionEN.slice(0, 600)}.</p>
 
           <div>
           <div class="p-3 m-2 badge badge-primary">Birth: ${data.dateBorn}</div>
@@ -85,5 +121,6 @@ const showMoreInfo = (data) => {
     </div>
     `;
 
-    showInfo.appendChild(div);
+
+  showInfo.appendChild(div);
 }
