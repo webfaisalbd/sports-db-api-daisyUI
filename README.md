@@ -1,3 +1,123 @@
+### Sports DB API
+
+# Player Name by search `https://www.thesportsdb.com/api/v1/json/2/searchplayers.php?p=messi`
+
+# Player Details by Id `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=34146370`
+
+
+# DaisyUI cdn connected html file
+
+```javascript
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.2/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1 class="text-3xl text-orange-500 text-center font-bold">
+    Sports DB API
+  </h1>
+
+  
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+# index.html file
+
+```javascript
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@2.15.2/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            clifford: '#da373d',
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1 class="text-3xl text-orange-500 text-center font-bold mt-8 mb-8">
+    Sports DB API
+  </h1>
+
+  <!-- input field  -->
+  <div style="margin:auto" class="form-control w-64">
+    <div class="input-group">
+      <input id="input-field" type="text" placeholder="Search…" class="input input-bordered" />
+      <button onclick="searchPlayer()" class="btn btn-square">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- secondly, display more info, after clicking the more info button  -->
+  <div id="showInfo" class="mt-6 container mx-auto px-16">
+    
+  </div>
+
+
+  <!-- first show the player  -->
+  <div id="showPlayer" class="mt-6 container mx-auto px-16">
+    
+  </div>
+
+
+
+
+
+
+  <script src="js/app.js"></script>
+</body>
+</html>
+```
+
+
+
+
+
+
+
+
+
+
+
+
+# app.js file
+
+```javascript
 const searchPlayer = () => {
 
 
@@ -34,7 +154,6 @@ const toggleDisplay = displayValue => {
 const displayPlayer = data => {
   // console.log(data);
   const showPlayer = document.getElementById('showPlayer');
-  showPlayer.textContent = '' ;
 
 
   // toggle display
@@ -88,7 +207,6 @@ const showMoreInfo = (data) => {
 
   // console.log(data);
   const showInfo = document.getElementById('showInfo');
-  showInfo.textContent= '';
 
   const div = document.createElement('div');
   // how to add style in dom createElement
@@ -126,3 +244,4 @@ const showMoreInfo = (data) => {
 
   showInfo.appendChild(div);
 }
+```
